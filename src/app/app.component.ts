@@ -1,5 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormControl, FormBuilder, Validators, AbstractControl } from '@angular/forms';
+
+function usernameCheck(c: AbstractControl): {[key: string]: Boolean} | null {
+  if (c.value === 'karthik') {
+    return { 'name' : true };
+  }
+  return null;
+}
 
 @Component({
   selector: 'app-root',
@@ -15,9 +22,10 @@ export class AppComponent implements OnInit {
   ngOnInit() {
 
     this.userForm = this.fb.group({
-      username: ['Hii', [Validators.required, Validators.minLength(3)]],
-      email: [{'value' : 'worst', 'disabled': false}, Validators.required],
-      password: ['Password', [Validators.required, Validators.minLength(3)]]
+      username: ['', [Validators.required, Validators.minLength(3), usernameCheck]],
+      // tslint:disable-next-line:max-line-length
+      email: [{'value' : '', 'disabled': false}, [Validators.required, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$')]],
+      password: ['', [Validators.required, Validators.minLength(6)]]
     });
     /* this.userForm = new FormGroup({
       username: new FormControl(),

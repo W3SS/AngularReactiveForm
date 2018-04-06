@@ -9,24 +9,33 @@
           <input type="text" 
             class="form-control" 
             placeholder="username"
-            required
-            minlength="3"
             formControlName="username">
-            <small *ngIf="(userForm.get('username').touched || userForm.get('username').dirty) && !userForm.get('username').valid">It has errors</small>
+            <div *ngIf="(userForm.get('username').touched || userForm.get('username').dirty) && !userForm.get('username').valid">
+              <small *ngIf="userForm.get('username').errors.required">How do we identify without this?</small>
+              <small *ngIf="userForm.get('username').errors.minlength">I have never seen such a short name</small>
+              <small *ngIf="userForm.get('username').errors.name">Uh! Ah! You can't use my Name</small>
+            </div>
+            
         </div>
         <div class="form-group">
           <input type="text" 
             class="form-control" 
             placeholder="email"
             formControlName="email">
-            <small *ngIf="(userForm.get('email').touched || userForm.get('email').dirty) && !userForm.get('email').valid">It has errors</small>
+            <div *ngIf="(userForm.get('email').touched || userForm.get('email').dirty) && !userForm.get('email').valid">
+              <small *ngIf="userForm.get('email').errors.required">We can stay in touch if you provide this</small>
+              <small *ngIf="userForm.get('email').errors.pattern">It doesn't seem like email. Pls don't cheat us</small>
+            </div>
         </div>
         <div class="form-group">
           <input type="password" 
             class="form-control"
             placeholder="password"
             formControlName="password">
-            <small *ngIf="(userForm.get('password').touched || userForm.get('password').dirty) && !userForm.get('password').valid">It has errors</small>
+            <div *ngIf="(userForm.get('password').touched || userForm.get('password').dirty) && !userForm.get('password').valid">
+              <small *ngIf="userForm.get('password').errors.required">I can see your details without this.</small>
+              <small *ngIf="userForm.get('password').errors.minlength">We need more characters to be secured</small>
+            </div>
         </div>
         <div class="form-group">
           <input type="submit" value="Submit" class="btn btn-primary">
