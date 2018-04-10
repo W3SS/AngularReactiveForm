@@ -27,18 +27,41 @@
               <small *ngIf="userForm.get('email').errors.pattern">It doesn't seem like email. Pls don't cheat us</small>
             </div>
         </div>
-        <div class="form-group">
+        <div class="form-group" formGroupName="passwords">
           <input type="password" 
             class="form-control"
             placeholder="password"
             formControlName="password">
-            <div *ngIf="(userForm.get('password').touched || userForm.get('password').dirty) && !userForm.get('password').valid">
-              <small *ngIf="userForm.get('password').errors.required">I can see your details without this.</small>
-              <small *ngIf="userForm.get('password').errors.minlength">We need more characters to be secured</small>
+            <div *ngIf="(userForm.get('passwords.password').touched || userForm.get('passwords.password').dirty) && !userForm.get('passwords.password').valid">
+              <small *ngIf="userForm.get('passwords.password').errors.required">I can see your details without this.</small>
+              <small *ngIf="userForm.get('passwords.password').errors.minlength">We need more characters to be secured</small>
+            </div>
+          <input type="password" 
+            class="form-control"
+            placeholder="Confirm password"
+            formControlName="cpassword">
+            <div *ngIf="(userForm.get('passwords.cpassword').touched || userForm.get('passwords.cpassword').dirty) && !userForm.get('passwords.cpassword').valid">
+              <small *ngIf="userForm.get('passwords.cpassword').errors.required">Only U knew what u typed in passsword. So we can't fill this.</small>
+            </div>
+            <small *ngIf="userForm.get('passwords').errors">Our inner mind said that this one won't match with above one.</small>
+        </div>
+        <div class="form-group">
+          
+        </div>
+        <div class="form-group">
+          <input type="number" 
+            class="form-control"
+            placeholder="Age"
+            formControlName="age">
+            <div *ngIf="(userForm.get('age').touched || userForm.get('age').dirty) && !userForm.get('age').valid">
+              <small *ngIf="userForm.get('age').errors.required">You must have an age. Find it.</small>
+              <small *ngIf="userForm.get('age').errors.range">Only for teens</small>
             </div>
         </div>
         <div class="form-group">
-          <input type="submit" value="Submit" class="btn btn-primary">
+          <input type="submit" 
+            value="Submit" class="btn btn-primary"
+            [disabled]="!userForm.valid">
         </div>
       </form>
     </div>
